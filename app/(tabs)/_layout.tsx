@@ -1,35 +1,28 @@
+import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import { Tabs } from 'expo-router';
-import React from 'react';
-
-import { TabBarIcon } from '@/components/navigation/TabBarIcon';
-import { Colors } from '@/constants/Colors';
-import { useColorScheme } from '@/hooks/useColorScheme';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
-
   return (
-    <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-      }}>
+    <Tabs screenOptions={{ tabBarActiveTintColor: 'blue' }}>
       <Tabs.Screen
         name="index"
         options={{
-          title: 'Home',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'home' : 'home-outline'} color={color} />
-          ),
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color }) => <Ionicons name='home' size={32} color={color} />,
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name='features'
         options={{
-          title: 'Explore',
-          tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon name={focused ? 'code-slash' : 'code-slash-outline'} color={color} />
-          ),
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color }) => <MaterialIcons size={32} name="local-pharmacy" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name='settings'
+        options={{
+          tabBarShowLabel: false,
+          tabBarIcon: ({ color }) => (<Ionicons size={32} name='settings' color={color} />)
         }}
       />
     </Tabs>
