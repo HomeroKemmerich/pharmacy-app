@@ -1,9 +1,16 @@
 import { Stack } from "expo-router";
+import { createContext } from "react";
+
+export const AuthContext = createContext({ name: '' });
 
 export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="index" />
-    </Stack>
+    <AuthContext.Provider value={{
+      name: 'Homero'
+    }}>
+      <Stack>
+        <Stack.Screen name="index" options={{ headerShown: false }} />
+      </Stack>
+    </AuthContext.Provider >
   );
 }
