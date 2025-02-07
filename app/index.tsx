@@ -1,7 +1,8 @@
 import { User } from "@/types/user";
 import { useState } from "react";
-import { Button, Text, View } from "react-native";
-import { Composer, GiftedChat, IMessage } from "react-native-gifted-chat";
+import { View } from "react-native";
+import { GiftedChat, IMessage } from "react-native-gifted-chat";
+import { aiModel, generateAIContent } from '../datasources/gemini';
 
 export default function Index() {
   const [user, setUser] = useState<User>({
@@ -37,8 +38,8 @@ export default function Index() {
     );
   };
 
-  const generateChatbotResponse = (userMessage: any) => {
-    return userMessage;
+  const generateChatbotResponse = async (prompt: any) => {
+    return await generateAIContent(prompt);
   };
 
   return (
