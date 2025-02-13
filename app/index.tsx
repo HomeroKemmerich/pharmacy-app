@@ -1,7 +1,8 @@
 import { User } from "@/types/user";
+import { FontAwesome } from "@expo/vector-icons";
 import { useState } from "react";
-import { View } from "react-native";
-import { GiftedChat, IMessage } from "react-native-gifted-chat";
+import { Button, View } from "react-native";
+import { ActionsProps, GiftedChat, IMessage } from "react-native-gifted-chat";
 import { aiModel, generateAIContent } from '../datasources/gemini';
 
 export default function Index() {
@@ -42,6 +43,20 @@ export default function Index() {
     return await generateAIContent(prompt);
   };
 
+  const RenderActions = (props: ActionsProps) => {
+    return (
+      <View
+        style={{
+          borderWidth: 1,
+          borderStyle: 'solid',
+          borderColor: 'red',
+          height: '100%',
+        }}>
+        <FontAwesome name="camera" size={32} />
+      </View>
+    )
+  }
+
   return (
     <View
       style={{
@@ -51,7 +66,9 @@ export default function Index() {
       <GiftedChat
         messages={messages}
         onSend={(newMessages: IMessage[]) => handleSend(newMessages)}
-        user={{ _id: 1, name: "User" }} />
+        user={{ _id: 1, name: "User" }}
+        placeholder="Mensagem"
+        renderActions={(props: ActionsProps) => RenderActions(props)} />
     </View>
   );
 }
