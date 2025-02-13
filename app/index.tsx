@@ -3,7 +3,8 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useState } from "react";
 import { Button, View } from "react-native";
 import { ActionsProps, GiftedChat, IMessage } from "react-native-gifted-chat";
-import { aiModel, generateAIContent } from '../datasources/gemini';
+import { generateAIContent } from '../datasources/gemini';
+import { CameraButton } from "./components/CameraButton";
 
 export default function Index() {
   const [user, setUser] = useState<User>({
@@ -43,20 +44,6 @@ export default function Index() {
     return await generateAIContent(prompt);
   };
 
-  const RenderActions = (props: ActionsProps) => {
-    return (
-      <View
-        style={{
-          borderWidth: 1,
-          borderStyle: 'solid',
-          borderColor: 'red',
-          height: '100%',
-        }}>
-        <FontAwesome name="camera" size={32} />
-      </View>
-    )
-  }
-
   return (
     <View
       style={{
@@ -68,7 +55,7 @@ export default function Index() {
         onSend={(newMessages: IMessage[]) => handleSend(newMessages)}
         user={{ _id: 1, name: "User" }}
         placeholder="Mensagem"
-        renderActions={(props: ActionsProps) => RenderActions(props)} />
+        renderActions={(props: ActionsProps) => CameraButton(props)} />
     </View>
   );
 }
