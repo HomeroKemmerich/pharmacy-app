@@ -3,8 +3,8 @@ import { FontAwesome } from "@expo/vector-icons";
 import { useState } from "react";
 import { Button, View } from "react-native";
 import { ActionsProps, GiftedChat, IMessage } from "react-native-gifted-chat";
+import { CameraButton } from "../components/CameraButton";
 import { generateAIContent } from '../datasources/gemini';
-import { CameraButton } from "./components/CameraButton";
 
 export default function Index() {
   const [user, setUser] = useState<User>({
