@@ -1,4 +1,4 @@
-import RenderCamera from "@/components/renderers/RenderCamera";
+import Camera from "@/components/Camera";
 import {
     CameraView,
     useCameraPermissions,
@@ -9,8 +9,8 @@ import { useRef, useState } from "react";
 import { Button, Text, View } from "react-native";
 import styles from "../constants/styles";
 
-export default function Camera() {
-    const router = useRouter()
+export default function CameraScreen() {
+    const router = useRouter();
     const [permission, requestPermission] = useCameraPermissions();
     const ref = useRef<CameraView>(null);
     const [uri, setUri] = useState<string | null>(null);
@@ -41,8 +41,7 @@ export default function Camera() {
 
     return (
         <View style={styles.container}>
-            {/*TODO: Return components, not functions */}
-            {RenderCamera(ref, takePicture)}
+            <Camera ref={ref} takePicture={takePicture} />
         </View>
     );
 }
