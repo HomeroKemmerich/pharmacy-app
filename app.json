@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "pharmacy-app",
-    "slug": "pharmacy-app",
+    "name": "farmac.ia",
+    "slug": "farmac-ia",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
