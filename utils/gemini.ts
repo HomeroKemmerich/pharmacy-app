@@ -1,7 +1,11 @@
-const { GoogleGenerativeAI } = require("@google/generative-ai");
+import { GoogleGenAI } from '@google/genai';
 
-const genAI = new GoogleGenerativeAI(process.env.EXPO_PUBLIC_GEMINI_API_KEY);
-const model = genAI.getGenerativeModel({ model: "gemini-1.5-pro-vision" });
+const ai = new GoogleGenAI({ apiKey: process.env.EXPO_PUBLIC_GEMINI_API_KEY });
+const config = {
+    responseMimeType: 'text/plain'
+}
+const model = 'gemini-1.5-flash'
+
 
 export async function generateAIContent(customPrompt: string, imageUri?: string) {
     // TODO: Elaborar um prompt mais adequado
@@ -11,22 +15,23 @@ export async function generateAIContent(customPrompt: string, imageUri?: string)
         Sabendo disso, seu aluno perguntou "${customPrompt}". Qual é a sua resposta? Você é PROIBIDO de responder qualquer pergunta que não seja relacionada à prática farmacêutica.
     `;
 
-    const content = imageUri ?
-        [
-            { text: prompt },
-            {
-                inlineData: {
-                    mimeType: 'image/jpeg',
-                    data: await fetchImageAsBase64(imageUri)
-                }
-            }
-        ] : [
-            {
-                text: prompt
-            }
-        ]
-    const result = await model.generateContent(prompt);
-    return result.response.text();
+    const contents = [{
+        role: 'user',
+        parts: [{
+            text: prompt,
+        }],
+    }];
+
+    try {
+        const result = await ai.models.generateContent({ contents, model, config });
+        console.log('ai response');
+        return result.text;
+    } catch (error) {
+        console.error("Erro ao gerar conteúdo com IA:", error);
+        return "Ocorreu um erro ao processar.";
+    }
+
+    return result.text
 }
 
 // Helper para converter imagem em base64
