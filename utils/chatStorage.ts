@@ -22,3 +22,12 @@ export async function loadChatHistory(): Promise<IMessage[]> {
         return [];
     }
 }
+
+export async function clearChatHistory() {
+    try {
+        await AsyncStorage.removeItem(CHAT_HISTORY_KEY);
+    } catch (e) {
+        console.error('Erro ao apagar histórico');
+        return false;
+    }
+}

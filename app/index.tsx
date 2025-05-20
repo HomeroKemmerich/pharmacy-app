@@ -1,5 +1,5 @@
 import { RenderBubble } from "@/components/renderers/RenderBubble";
-import { loadChatHistory, saveChatHistory } from "@/utils/chatStorage";
+import { clearChatHistory, loadChatHistory, saveChatHistory } from "@/utils/chatStorage";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
 import { Button, Text, View } from "react-native";
@@ -138,10 +138,10 @@ export default function Index() {
         renderBubble={RenderBubble}
       />
       <Button
-        title="Print histórico"
+        title="Apaga histórico"
         onPress={async () => {
-          const history = await loadChatHistory();
-          console.log("Histórico:", history);
+          const history = await clearChatHistory();
+          console.log("Histórico excluído com sucesso");
         }}
       />
     </View>
