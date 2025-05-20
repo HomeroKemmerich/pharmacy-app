@@ -2,7 +2,7 @@ import { RenderBubble } from "@/components/renderers/RenderBubble";
 import { clearChatHistory, loadChatHistory, saveChatHistory } from "@/utils/chatStorage";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Button, Text, View } from "react-native";
+import { ActivityIndicator, Button, Text, View } from "react-native";
 import { ActionsProps, GiftedChat, IMessage } from "react-native-gifted-chat";
 import { v4 as uuidv4 } from 'uuid';
 import { CameraButton } from "../components/CameraButton";
@@ -21,6 +21,7 @@ export default function Index() {
   const normalizedUri = Array.isArray(uri) ? uri[0] : uri;
 
   const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState({
     _id: USER_ID,
     name: 'User'
@@ -61,18 +62,26 @@ export default function Index() {
     await saveChatHistory(updatedMessages);
 
     const userMessage = newMessages[0].text;
-    const botResponse = await generateAIContent(userMessage, normalizedUri);
+    try {
+      setIsLoading(true);
 
-    const botMessage: IMessage = {
-      _id: getMessageId(),
-      text: botResponse,
-      createdAt: new Date(),
-      user: CHAT_BOT
+      const botResponse = await generateAIContent(userMessage, normalizedUri);
+
+      const botMessage: IMessage = {
+        _id: getMessageId(),
+        text: botResponse,
+        createdAt: new Date(),
+        user: CHAT_BOT
+      }
+
+      const finalMessages = GiftedChat.append(updatedMessages, [botMessage]);
+      setMessages(finalMessages);
+      await saveChatHistory(finalMessages)
+    } catch (e) {
+      console.error('Erro ao enviar mensagem');
+    } finally {
+      setIsLoading(false);
     }
-
-    const finalMessages = GiftedChat.append(updatedMessages, [botMessage]);
-    setMessages(finalMessages);
-    await saveChatHistory(finalMessages)
   };
 
   function getMessageId(): string {
@@ -144,6 +153,11 @@ export default function Index() {
           console.log("Histórico excluído com sucesso");
         }}
       />
+      {isLoading && (
+        <View style={{ padding: 12, alignItems: 'center' }}>
+          <ActivityIndicator size="large" color="#007AFF" />
+        </View>
+      )}
     </View>
   );
 }
