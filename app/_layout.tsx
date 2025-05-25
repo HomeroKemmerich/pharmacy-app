@@ -1,4 +1,5 @@
-import { Stack } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import { Stack, Tabs } from "expo-router";
 import { createContext } from "react";
 
 export const AuthContext = createContext({ name: '' });
@@ -8,11 +9,41 @@ export default function RootLayout() {
     <AuthContext.Provider value={{
       name: 'Homero'
     }}>
-      <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="camera" options={{ headerShown: false }} />
-        <Stack.Screen name="preview" options={{ headerShown: false }} />
-      </Stack>
-    </AuthContext.Provider >
+      <Tabs>
+        <Tabs.Screen
+          name="index"
+          options={{
+            title: "Chat",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="chatbubbles" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="flashcards"
+          options={{
+            title: "Flashcards",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="card" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="camera"
+          options={{
+            title: "Camera",
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="camera" size={size} color={color} />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="preview"
+          options={{
+            href: null,
+          }}
+        />
+      </Tabs>
+    </AuthContext.Provider>
   );
 }

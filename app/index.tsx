@@ -20,6 +20,7 @@ export default function Index() {
 
   const normalizedUri = Array.isArray(uri) ? uri[0] : uri;
 
+  const [isTyping, setIsTyping] = useState(false);
   const [loading, setLoading] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
   const [user, setUser] = useState({
@@ -54,7 +55,7 @@ export default function Index() {
       }
       setLoading(false);
     })();
-  }, [])
+  }, [isLoading])
 
   const onSend = async (newMessages: IMessage[]) => {
     const updatedMessages = GiftedChat.append(messages, newMessages)
@@ -63,7 +64,7 @@ export default function Index() {
 
     const userMessage = newMessages[0].text;
     try {
-      setIsLoading(true);
+      setIsTyping(true);
 
       const botResponse = await generateAIContent(userMessage, normalizedUri);
 
@@ -80,7 +81,7 @@ export default function Index() {
     } catch (e) {
       console.error('Erro ao enviar mensagem');
     } finally {
-      setIsLoading(false);
+      setIsTyping(false);
     }
   };
 
@@ -143,14 +144,17 @@ export default function Index() {
         onSend={onSend}
         user={user}
         placeholder="Mensagem"
+        isTyping={isTyping}
         renderActions={(props: ActionsProps) => CameraButton(props)}
         renderBubble={RenderBubble}
       />
       <Button
         title="Apaga histórico"
         onPress={async () => {
-          const history = await clearChatHistory();
+          setIsLoading(true);
+          await clearChatHistory();
           console.log("Histórico excluído com sucesso");
+          setIsLoading(false);
         }}
       />
       {isLoading && (
