@@ -1,10 +1,14 @@
 import { Ionicons } from "@expo/vector-icons";
 import { Stack, Tabs } from "expo-router";
-import { createContext } from "react";
-
-export const AuthContext = createContext({ name: '' });
+import React, { useEffect } from "react";
+import { AuthContext } from '../constants/AuthContext';
+import { initializeMedicationDatabase } from '../utils/medicationDatabase';
 
 export default function RootLayout() {
+  useEffect(() => {
+    initializeMedicationDatabase();
+  }, []);
+
   return (
     <AuthContext.Provider value={{
       name: 'Homero'
