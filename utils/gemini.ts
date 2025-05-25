@@ -17,16 +17,16 @@ export async function generateAIContent(customPrompt: string, imageUri?: string)
     let medicationInfo = '';
 
     if (medications.length > 0) {
-        medicationInfo = '\n\nInformações relevantes dos medicamentos encontrados:\n\n';
+        medicationInfo = '\n\n### Informações relevantes dos medicamentos encontrados:\n\n';
         for (const med of medications) {
-            medicationInfo += formatMedicationForGemini(med) + '\n\n';
+            medicationInfo += '```markdown\n' + formatMedicationForGemini(med) + '\n```\n\n';
 
             // Get interactions for this medication
             const interactions = await findInteractions(med.id);
             if (interactions.length > 0) {
-                medicationInfo += 'Interações medicamentosas:\n\n';
+                medicationInfo += '### Interações medicamentosas:\n\n';
                 for (const interaction of interactions) {
-                    medicationInfo += formatInteractionForGemini(interaction, medications) + '\n\n';
+                    medicationInfo += '```markdown\n' + formatInteractionForGemini(interaction, medications) + '\n```\n\n';
                 }
             }
         }
@@ -36,6 +36,14 @@ export async function generateAIContent(customPrompt: string, imageUri?: string)
     Você é um professor do curso de farmácia com vasto conhecimento em farmacologia e interações medicamentosas. 
     Analise a imagem fornecida (se houver) junto com a pergunta abaixo e dê uma resposta clara e instrutiva.
     Use as informações do banco de dados de medicamentos fornecidas (se houver) para enriquecer sua resposta.
+
+    Formate sua resposta usando markdown para melhor legibilidade:
+    - Use ## para títulos de seções
+    - Use * ou _ para ênfase
+    - Use ` + '```' + ` para blocos de código ou informações técnicas
+    - Use > para citações importantes
+    - Use - ou * para listas
+    - Use tabelas markdown quando apropriado
 
     Pergunta do usuário: "${customPrompt}"
 
