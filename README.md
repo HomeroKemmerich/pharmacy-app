@@ -1,50 +1,71 @@
-# Welcome to your Expo app 👋
+# Farmác.IA
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Um aplicativo móvel desenvolvido com React Native e Expo para auxiliar profissionais e estudantes da área farmacêutica com informações sobre medicamentos, interações medicamentosas e conhecimentos farmacológicos.
 
-## Get started
+## Funcionalidades
 
-1. Install dependencies
+- **Bulário**: Acesso rápido a informações sobre medicamentos organizados por classes farmacológicas
+- **Câmera**: Captura de imagens para identificação de medicamentos
+- **IA**: Chat inteligente para tirar dúvidas sobre posologia, interações e classes farmacológicas
+- **Flashcards**: Sistema de estudo com questões sobre farmacologia
+- **Perfil**: Gerenciamento de configurações e preferências do usuário
 
-   ```bash
-   npm install
-   ```
+## Pré-requisitos
 
-2. Start the app
+- Node.js (versão 14 ou superior)
+- npm ou yarn
+- Expo CLI
+- Um dispositivo móvel com Expo Go instalado ou um emulador
 
-   ```bash
-   npx expo start
-   ```
+## Instalação
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+1. Clone o repositório:
 
 ```bash
-npm run reset-project
+git clone https://github.com/seu-usuario/farmac.ia.git
+cd farmac.ia
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+2. Instale as dependências:
 
-## Learn more
+```bash
+npm install
+# ou
+yarn install
+```
 
-To learn more about developing your project with Expo, look at the following resources:
+3. Inicie o servidor de desenvolvimento:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```bash
+npm start
+# ou
+yarn start
+```
 
-## Join the community
+4. Escaneie o QR code com o Expo Go (Android) ou a Câmera (iOS)
 
-Join our community of developers creating universal apps.
+## Tecnologias utilizadas
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- React Native
+- Expo
+- React Navigation
+- Vector Icons
+- Outras bibliotecas React Native
+
+## Contribuição
+
+1. Faça o fork do projeto
+2. Crie uma branch para sua feature (`git checkout -b feature/AmazingFeature`)
+3. Commit suas mudanças (`git commit -m 'Add some AmazingFeature'`)
+4. Push para a branch (`git push origin feature/AmazingFeature`)
+5. Abra um Pull Request
+
+## Licença
+
+Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+## Contato
+
+Seu Nome - [@seutwitter](https://twitter.com/seutwitter) - <email@example.com>
+
+Link do projeto: [https://github.com/seu-usuario/farmac.ia](https://github.com/seu-usuario/farmac.ia)
